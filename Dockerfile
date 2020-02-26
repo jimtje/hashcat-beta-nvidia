@@ -38,6 +38,6 @@ RUN export PRINCE_URL="$(wget -O- -q https://github.com/hashcat/princeprocessor/
     wget -O prince.7z -q "https://github.com/${PRINCE_URL}" && \
     7zr x prince.7z
 
- RUN ln -s /hashcat/hashcat/hashcat64.bin /usr/bin/hashcat
+ RUN ln -s /root/hashcat/hashcat/hashcat64.bin /usr/bin/hashcat
 
 
