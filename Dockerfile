@@ -1,24 +1,4 @@
-FROM ubuntu:18.04
-
-LABEL com.nvidia.volumes.needed="nvidia_driver"
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ocl-icd-libopencl1 \
-        clinfo && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /etc/OpenCL/vendors && \
-    echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
-
-RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
-
-ENV PATH /usr/local/nvidia/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
-
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+FROM nvidia/cuda:10.1-devel-ubuntu18.04
 
 # install depends
 RUN apt-get update && \
@@ -38,6 +18,6 @@ RUN export PRINCE_URL="$(wget -O- -q https://github.com/hashcat/princeprocessor/
     wget -O prince.7z -q "https://github.com/${PRINCE_URL}" && \
     7zr x prince.7z
 
- RUN ln -s /root/hashcat/hashcat/hashcat64.bin /usr/bin/hashcat
+ RUN ln -s /root/hashcat/hashcat-5.1.0/hashcat64.bin /usr/bin/hashcat
 
 
