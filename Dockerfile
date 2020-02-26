@@ -32,13 +32,11 @@ WORKDIR /hashcat
 
 RUN export HASHCAT_VER="$(wget -O- -q https://hashcat.net/beta/ | grep hashcat | cut -f 2 -d '"')" && \
     wget -q -O hashcat.7z "https://hashcat.net/beta/${HASHCAT_VER}" && \
-    7zr x hashcat.7z && \
-    rm hashcat.7z
+    7zr x hashcat.7z
 
 RUN export PRINCE_URL="$(wget -O- -q https://github.com/hashcat/princeprocessor/releases/latest | grep -i \.7z | grep href | cut -f 2 -d '"')" && \
     wget -O prince.7z -q "https://github.com/${PRINCE_URL}" && \
-    7zr x prince.7z && \
-    rm prince.7z
+    7zr x prince.7z
 
  RUN ln -s /hashcat/hashcat/hashcat64.bin /usr/bin/hashcat
 
