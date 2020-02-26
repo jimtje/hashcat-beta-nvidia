@@ -24,10 +24,10 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 RUN apt-get update && \
     apt-get install -y wget p7zip make build-essential git libcurl4-openssl-dev libssl-dev zlib1g-dev python3 python3-psutil pciutils
 
-RUN mkdir /hashcat
+CMD mkdir /root/hashcat
 
 
-WORKDIR /hashcat
+WORKDIR /root/hashcat
 
 
 RUN export HASHCAT_VER="$(wget -O- -q https://hashcat.net/beta/ | grep hashcat | cut -f 2 -d '"')" && \
